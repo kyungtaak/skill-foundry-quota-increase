@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Microsoft Foundry Service: Request for Quota Increase</title>
+  <style>
+    body { margin: 0; font: 16px sans-serif; }
+    .office-form-content { height: 100vh; overflow-y: auto; }
+    main { max-width: 850px; margin: auto; padding: 24px; }
+    section { margin: 18px 0; }
+    input[type=text], textarea { display: block; width: 90%; padding: 8px; }
+    [role=listbox] { padding: 8px; border: 1px solid #aaa; cursor: pointer; }
+    [role=option] { padding: 5px; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<div class="office-form-content">
+<main id="form">
+  <h1>Microsoft Foundry Service: Request for Quota Increase</h1>
+  <p>SYNTHETIC LOCAL FIXTURE. No application is sent.</p>
+  <div id="common"></div>
+  <section>
+    <div role="radiogroup" aria-label="11. Quota Type *">
+      <label><input type="radio" name="quotaType" aria-label="Model Deployment (PTU/RPM/TPM)">Model Deployment (PTU/RPM/TPM)</label>
+    </div>
+  </section>
+  <section>
+    <div role="radiogroup" aria-label="12. Model Type *">
+      <label><input type="radio" name="modelType" aria-label="Azure Direct Model (ADM)">Azure Direct Model (ADM)</label>
+      <label><input type="radio" name="modelType" aria-label="Azure OpenAI">Azure OpenAI</label>
+    </div>
+  </section>
+  <section>
+    <div role="radiogroup" aria-label="13. Quota Request Type">
+      <label><input type="radio" name="deployment" aria-label="Global Standard">Global Standard</label>
+    </div>
+  </section>
+  <section>
+    <h2>14. Global Standard Model</h2>
+    <div id="model" role="listbox" aria-label="14. (Azure Direct Model) Global Standard Model *" aria-expanded="false">
+      <div role="option" class="selected" aria-selected="true">Select an answer</div>
+      <div role="listbox" aria-label="Select an answer" hidden></div>
+    </div>
+  </section>
+  <section id="regionQuestion">
+    <h2>15. Global Standard Region</h2>
+    <div id="region" role="listbox" aria-label="15. Global Standard Region *" aria-expanded="false">
+      <div role="option" class="selected" aria-selected="true">Select an answer</div>
+      <div role="listbox" aria-label="Select an answer" hidden></div>
+    </div>
+  </section>
+  <section>
+    <h2>16. (Azure Direct Model) Global Standard Quota</h2>
+    <p>All Azure Direct Models are in the ratio of 1:1000 TPM.</p>
+    <input type="text" aria-label="16. (Azure Direct Model) Global Standard Quota *">
+  </section>
+  <button id="submit" type="button">Submit</button>
+</main>
+<main id="confirmation" hidden><h1>Your response was submitted.</h1></main>
+</div>
+<script>
+  window.syntheticSubmitClicks = 0;
+  const fields = [
+    'First Name', 'Last Name', 'Company Email', 'Company Name', 'Company Address',
+    'Company City', 'Company Postal Code', 'Company Country', 'Subscription Id', 'Justification'
+  ];
+  fields.forEach((name, index) => {
+    const section = document.createElement('section');
+    const label = document.createElement('label');
+    label.textContent = `${index + 1}. ${name}`;
+    const control = document.createElement(name === 'Justification' ? 'textarea' : 'input');
+    control.setAttribute('aria-label', `${index + 1}. ${name} *`);
+    if (control.tagName === 'INPUT') control.type = 'text';
+    label.appendChild(control);
+    section.appendChild(label);
+    document.querySelector('#common').appendChild(section);
+  });
+  function dropdown(id, values, change) {
+    const box = document.getElementById(id);
+    const list = box.querySelector('[role=listbox]');
+    for (const value of values) {
+      const option = document.createElement('div');
+      option.setAttribute('role', 'option');
+      option.setAttribute('aria-label', value);
+      option.textContent = value;
+      option.addEventListener('click', event => {
+        event.stopPropagation();
+        box.querySelector('.selected').textContent = value;
+        list.hidden = true;
+        box.setAttribute('aria-expanded', 'false');
+        if (change) change(value);
+      });
+      list.appendChild(option);
+    }
+    box.addEventListener('click', () => {
+      list.hidden = !list.hidden;
+      box.setAttribute('aria-expanded', String(!list.hidden));
+    });
+  }
+  dropdown('model', ['Example-Model', 'Example-No-Region'], value => {
+    document.getElementById('regionQuestion').hidden = value === 'Example-No-Region';
+  });
+  dropdown('region', ['Korea Central', 'West US']);
+  document.getElementById('submit').addEventListener('click', () => {
+    window.syntheticSubmitClicks++;
+    document.getElementById('form').hidden = true;
+    document.getElementById('confirmation').hidden = false;
+  });
+</script>
+</body>
+</html>

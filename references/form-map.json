@@ -1,0 +1,59 @@
+{
+  "checked_on": "2026-10-23",
+  "entry_url": "https://aka.ms/aoai/quotaincrease",
+  "form_title": "Microsoft Foundry Service: Request for Quota Increase",
+  "expected_host": "customervoice.microsoft.com",
+  "reference_only": true,
+  "completion_texts": [
+    "Your response was submitted",
+    "Your response has been submitted",
+    "응답이 제출되었습니다",
+    "응답을 제출했습니다",
+    "Thanks! You've completed the request!"
+  ],
+  "supported_v1": {
+    "quota_type": "Model Deployment (PTU/RPM/TPM)",
+    "model_types": ["Azure OpenAI", "Azure Direct Model (ADM)"],
+    "deployment_types": ["Global Standard"],
+    "input_unit": "TPM",
+    "form_unit_rule": "requested_tpm / 1000; chat kTPM or ADM capacity units",
+    "unsupported_units": ["RPM", "PTU", "GPU", "batch tokens"],
+    "unsupported_model_branches": ["Azure OpenAI audio", "Azure OpenAI realtime", "Anthropic", "Fireworks"]
+  },
+  "common_field_labels": [
+    "First Name",
+    "Last Name",
+    "Company Email",
+    "Company Name",
+    "Company Address",
+    "Company City",
+    "Company Postal Code",
+    "Company Country",
+    "Subscription Id",
+    "Justification"
+  ],
+  "model_field_order": [
+    "Quota Type",
+    "Model Type",
+    "Quota Request Type",
+    "Global Standard Model",
+    "Global Standard Region (only if visible after model selection)",
+    "Global Standard Quota"
+  ],
+  "observations_not_rules": [
+    "Question numbers change when conditional fields disappear; match labels, not question numbers.",
+    "The model and region dropdowns use an outer role=listbox, a selected placeholder role=option, and an inner role=listbox. Select options from the inner listbox to avoid duplicate matches.",
+    "Some models do not show a region question after model selection. Do not force a region or infer regional availability from this.",
+    "The exact gpt-5 entry was missing from the live Global Standard dropdown on the checked date. Recheck live choices each run; this is not a permanent deny list.",
+    "A listed model is not proof of lifecycle support, deployability, available quota, or approval of the requested amount.",
+    "The page can scroll in an inner office-form-content element. A fullPage screenshot of the document may contain only the current viewport.",
+    "Focus can shift while masked fields initialize, sending a subscription GUID to a different textbox. Read committed values after blur and compare all fields again before clicking.",
+    "An interrupted tool response does not prove the browser task stopped. Inspect the existing ledger and running operation before resuming."
+  ],
+  "sources": [
+    "https://aka.ms/aoai/quotaincrease",
+    "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/quota",
+    "https://learn.microsoft.com/en-us/azure/foundry/openai/quotas-limits",
+    "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule"
+  ]
+}
